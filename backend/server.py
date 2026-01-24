@@ -4,15 +4,15 @@ import uvicorn
 
 app = FastAPI()
 
-@app.get("/", response_class=HTMLResponse)
+@app.get("/")
 def main_page():
     return {"page": "main"}
 
-@app.get("/view", response_class=HTMLResponse)
+@app.get("/view")
 def view_page():
     return {"page": "view"}
 
-@app.get("/add", response_class=HTMLResponse)
+@app.get("/add")
 def add_page():
     return {"page": "add"}
 
