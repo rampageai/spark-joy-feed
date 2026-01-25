@@ -3,22 +3,15 @@ from sqlmodel import SQLModel, Field, create_engine, Session
 
 class Photo(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-
-    # required (cannot be null)
-    name: str
-
-    # optional (can be null)
-    date: Optional[str] = None
-
+    name: Optional[str] = None
+    filename: str
+    caption: Optional[str] = None
+    date: str
 
 class Note(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-
-    # required
     text: str
-
-    # optional
-    date: Optional[str] = None
+    date: str
     
 class Entry(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
