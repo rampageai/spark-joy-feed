@@ -48,7 +48,8 @@ function App() {
 
   return (
     <div className="container">
-      <h1>Polaroid Gallery + Post-it Notes</h1>
+      {/* Updated title */}
+      <h1>Spark Joy Feed</h1>
 
       {/* Top buttons */}
       <div className="top-buttons">
