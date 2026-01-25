@@ -5,6 +5,7 @@ const API_BASE = "http://127.0.0.1:3000";
 
 function App() {
   const [feed, setFeed] = useState([]);
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const [status, setStatus] = useState("");
   const [newNoteDate, setNewNoteDate] = useState("");
   const [newNoteText, setNewNoteText] = useState("");
@@ -308,6 +309,7 @@ function App() {
                     const item = fireworkConfirm;
                     setFireworkConfirm(null);
                     triggerFirework(`${item.type}-${item.id}`);
+                    await sleep(800);
                     await deleteItem(item);
                   }}
                 >
