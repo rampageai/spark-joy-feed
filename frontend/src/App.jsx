@@ -12,8 +12,9 @@ function App() {
   const [uploadFile, setUploadFile] = useState(null);
   const [uploadCaption, setUploadCaption] = useState("");
   const [uploadDate, setUploadDate] = useState("");
-  const [pageBg, setPageBg] = useState("#111");
+  const [pageBg, setPageBg] = useState(() => localStorage.getItem("pageBg") || "#111");
   const [showBgPicker, setShowBgPicker] = useState(false);
+
 
   async function loadAll() {
     try {
@@ -93,6 +94,7 @@ function App() {
 
   useEffect(() => {
     document.documentElement.style.setProperty("--page-bg", pageBg);
+    localStorage.setItem("pageBg", pageBg);
   }, [pageBg]);
 
   const [showPolaroidPicker, setShowPolaroidPicker] = useState(null)
@@ -134,19 +136,20 @@ function App() {
         <button onClick={addNote}>➕ Sticky Note</button>
       </div>
 
-      <div className="background-controls">
+      <div className="background-controls" style={{ gap: 10, alignItems: "center" }}>
         <button onClick={() => setShowBgPicker((v) => !v)}>
-          🎨 Toggle Background
+          🎨 Background Color
         </button>
+
         {showBgPicker && (
           <input
             type="color"
             value={pageBg}
             onChange={(e) => setPageBg(e.target.value)}
-            style={{ display: showBgPicker ? "inline-block" : "none" }}
           />
         )}
       </div>
+
 
       {/* ---------------- Popups ---------------- */}
       {showAddPolaroidPopup && (
