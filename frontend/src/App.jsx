@@ -19,6 +19,7 @@ function App() {
   const [showPolaroidPicker, setShowPolaroidPicker] = useState(null)
   const [showNotePicker, setShowNotePicker] = useState(null)
   const [showFirework, setShowFirework] = useState(null)
+  const [confirmFirework, setConfirmFirework] = useState(null) // NEW: firework confirmation popup
 
   // Popup state for Add buttons
   const [showAddPolaroidPopup, setShowAddPolaroidPopup] = useState(false)
@@ -45,6 +46,11 @@ function App() {
   // Add new elements - now just show popup
   const addPolaroid = () => setShowAddPolaroidPopup(true)
   const addNote = () => setShowAddNotePopup(true)
+
+  // Request firework confirmation
+  const requestFirework = (id) => {
+    setConfirmFirework(id)
+  }
 
   return (
     <div className="container">
@@ -95,6 +101,24 @@ function App() {
         </div>
       )}
 
+      {/* Firework confirmation popup */}
+      {confirmFirework && (
+        <div className="popup">
+          <h3 style={{ color: '#000' }}>Do you want to sparkle away this memory?</h3>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', marginTop: '12px' }}>
+            <button onClick={() => setConfirmFirework(null)}>No</button>
+            <button
+              onClick={() => {
+                triggerFirework(confirmFirework)
+                setConfirmFirework(null)
+              }}
+            >
+              Yes
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* ---------------- Polaroids ---------------- */}
       <div className="grid">
         {polaroids.map((p, i) => (
@@ -121,7 +145,7 @@ function App() {
                 className="firework-button"
                 onClick={e => {
                   e.stopPropagation()
-                  triggerFirework(`polaroid-${i}`)
+                  requestFirework(`polaroid-${i}`)
                 }}
               >
                 🎆
@@ -185,7 +209,7 @@ function App() {
                 className="firework-button"
                 onClick={e => {
                   e.stopPropagation()
-                  triggerFirework(`note-${note.id}`)
+                  requestFirework(`note-${note.id}`)
                 }}
               >
                 🎆
