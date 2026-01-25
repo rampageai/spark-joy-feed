@@ -135,15 +135,15 @@ function App() {
       </div>
 
       <div className="background-controls">
-        <button onClick={() => setShowBgPicker(!showBgPicker)}>
-          🎨 Page Background
+        <button onClick={() => setShowBgPicker((v) => !v)}>
+          🎨 Toggle Background
         </button>
         {showBgPicker && (
           <input
             type="color"
             value={pageBg}
             onChange={(e) => setPageBg(e.target.value)}
-            className="color-picker-popup"
+            style={{ display: showBgPicker ? "inline-block" : "none" }}
           />
         )}
       </div>
