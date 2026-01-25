@@ -7,26 +7,26 @@ function App() {
       id: i,
       color: '#ffffff',
       caption: `Photo ${i + 1}`,
-      date: '', // <--- new date field
+      date: '',
     }))
   )
 
   const [notes, setNotes] = useState([
-    { id: 1, color: '#ffeb3b', text: 'Note 1' },
-    { id: 2, color: '#8bc34a', text: 'Note 2' },
+    { id: 1, color: '#ffeb3b', text: 'Note 1', date: '' },
+    { id: 2, color: '#8bc34a', text: 'Note 2', date: '' },
   ])
 
   const [showPolaroidPicker, setShowPolaroidPicker] = useState(null)
   const [showNotePicker, setShowNotePicker] = useState(null)
   const [showFirework, setShowFirework] = useState(null)
 
+  // Popup state for Add buttons
+  const [showAddPolaroidPopup, setShowAddPolaroidPopup] = useState(false)
+  const [showAddNotePopup, setShowAddNotePopup] = useState(false)
+
   // Handlers
   const handlePolaroidColor = (id, color) => {
     setPolaroids(polaroids.map(p => (p.id === id ? { ...p, color } : p)))
-  }
-
-  const handlePolaroidDate = (id, date) => {
-    setPolaroids(polaroids.map(p => (p.id === id ? { ...p, date } : p)))
   }
 
   const handleNoteColor = (id, color) => {
@@ -42,16 +42,9 @@ function App() {
     setTimeout(() => setShowFirework(null), 2000)
   }
 
-  // Add new elements
-  const addPolaroid = () => {
-    const newId = polaroids.length ? polaroids[polaroids.length - 1].id + 1 : 0
-    setPolaroids([...polaroids, { id: newId, color: '#ffffff', caption: `Photo ${newId + 1}`, date: '' }])
-  }
-
-  const addNote = () => {
-    const newId = notes.length ? notes[notes.length - 1].id + 1 : 1
-    setNotes([...notes, { id: newId, color: '#ffeb3b', text: `Note ${newId}` }])
-  }
+  // Add new elements - now just show popup
+  const addPolaroid = () => setShowAddPolaroidPopup(true)
+  const addNote = () => setShowAddNotePopup(true)
 
   return (
     <div className="container">
@@ -63,7 +56,45 @@ function App() {
         <button onClick={addNote}>➕ Sticky Note</button>
       </div>
 
-      {/* Polaroid Gallery */}
+      {/* ---------------- Popups ---------------- */}
+
+      {/* Polaroid Add Popup */}
+      {showAddPolaroidPopup && (
+        <div className="popup">
+          <h3>Add New Polaroid</h3>
+          <input type="text" placeholder="Name" />
+          <input type="text" placeholder="Date" />
+          <button
+            onClick={() => {
+              setShowAddPolaroidPopup(false)
+              // Submit does nothing yet
+              console.log('Submit Polaroid - not implemented yet')
+            }}
+          >
+            Submit
+          </button>
+        </div>
+      )}
+
+      {/* Sticky Note Add Popup */}
+      {showAddNotePopup && (
+        <div className="popup">
+          <h3>Add New Sticky Note</h3>
+          <input type="text" placeholder="Date" />
+          <input type="text" placeholder="Text" />
+          <button
+            onClick={() => {
+              setShowAddNotePopup(false)
+              // Submit does nothing yet
+              console.log('Submit Note - not implemented yet')
+            }}
+          >
+            Submit
+          </button>
+        </div>
+      )}
+
+      {/* ---------------- Polaroids ---------------- */}
       <div className="grid">
         {polaroids.map((p, i) => (
           <div
@@ -73,15 +104,6 @@ function App() {
           >
             <div className="photo" />
             <div className="caption">{p.caption}</div>
-
-            {/* Date input */}
-            <input
-              type="text"
-              placeholder="Enter date"
-              value={p.date}
-              onChange={e => handlePolaroidDate(p.id, e.target.value)}
-              className="date-input"
-            />
 
             <div className="buttons-container">
               <button
@@ -137,7 +159,7 @@ function App() {
         ))}
       </div>
 
-      {/* Post-it Notes */}
+      {/* ---------------- Sticky Notes ---------------- */}
       <h2>Post-it Notes</h2>
       <div className="notes-container">
         {notes.map(note => (
@@ -205,3 +227,4 @@ function App() {
 }
 
 export default App
+
