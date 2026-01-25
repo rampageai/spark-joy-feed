@@ -110,6 +110,89 @@ body {
   color: #374151;
   font-family: 'Courier New', monospace;
   text-align: center;
+  font-family: system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* horizontal centering of all content */
+}
+
+/* Top buttons */
+.top-buttons {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.top-buttons button {
+  padding: 8px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #000;
+  /* text is black */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  /* space between icon and text */
+  transition: background 0.2s ease;
+}
+
+.top-buttons button:hover {
+  background: #f0f0f0;
+}
+
+/* Polaroid grid */
+.grid {
+  display: flex;
+  /* switch from grid to flex to ensure perfect centering */
+  flex-wrap: wrap;
+  justify-content: center;
+  /* center horizontally */
+  gap: 16px;
+  margin-top: 24px;
+}
+
+/* Polaroid squares */
+.square {
+  width: 140px;
+  height: 180px;
+  background: white;
+  border-radius: 6px;
+  padding: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.square:hover {
+  transform: translateY(-6px) rotate(-1deg);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Photo box inside polaroid */
+.photo {
+  flex: 1;
+  background: #d1d5db;
+  border-radius: 4px;
+  border: 2px solid black;
+  /* black outline around photo */
+  margin-bottom: 8px;
+}
+
+/* Caption text */
+.caption {
+  font-size: 0.8rem;
+  color: #374151;
+  font-family: 'Courier New', monospace;
+  text-align: center;
 }
 
 /* ------------------- Buttons Inside Polaroids/Notes ------------------- */

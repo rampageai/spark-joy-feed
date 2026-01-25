@@ -1,0 +1,7 @@
+{
+  "name": "spark-joy-feed",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix frontend run dev:all"
+  }
+}
