@@ -7,6 +7,7 @@ function App() {
       id: i,
       color: '#ffffff',
       caption: `Photo ${i + 1}`,
+      date: '', // <--- new date field
     }))
   )
 
@@ -22,6 +23,10 @@ function App() {
   // Handlers
   const handlePolaroidColor = (id, color) => {
     setPolaroids(polaroids.map(p => (p.id === id ? { ...p, color } : p)))
+  }
+
+  const handlePolaroidDate = (id, date) => {
+    setPolaroids(polaroids.map(p => (p.id === id ? { ...p, date } : p)))
   }
 
   const handleNoteColor = (id, color) => {
@@ -40,7 +45,7 @@ function App() {
   // Add new elements
   const addPolaroid = () => {
     const newId = polaroids.length ? polaroids[polaroids.length - 1].id + 1 : 0
-    setPolaroids([...polaroids, { id: newId, color: '#ffffff', caption: `Photo ${newId + 1}` }])
+    setPolaroids([...polaroids, { id: newId, color: '#ffffff', caption: `Photo ${newId + 1}`, date: '' }])
   }
 
   const addNote = () => {
@@ -52,7 +57,7 @@ function App() {
     <div className="container">
       <h1>Polaroid Gallery + Post-it Notes</h1>
 
-      {/* Top buttons to add new elements */}
+      {/* Top buttons */}
       <div className="top-buttons">
         <button onClick={addPolaroid}>➕ Polaroid</button>
         <button onClick={addNote}>➕ Sticky Note</button>
@@ -68,6 +73,15 @@ function App() {
           >
             <div className="photo" />
             <div className="caption">{p.caption}</div>
+
+            {/* Date input */}
+            <input
+              type="text"
+              placeholder="Enter date"
+              value={p.date}
+              onChange={e => handlePolaroidDate(p.id, e.target.value)}
+              className="date-input"
+            />
 
             <div className="buttons-container">
               <button
