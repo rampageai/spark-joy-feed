@@ -4,11 +4,11 @@ import './App.css'
 function App() {
   const [selectedPolaroid, setSelectedPolaroid] = useState(null)
 
-  // Polaroid colors
+  // Polaroid colors (background of the polaroid itself)
   const [polaroids, setPolaroids] = useState(
     Array.from({ length: 9 }, (_, i) => ({
       id: i,
-      color: '#d1d5db',
+      color: '#ffffff', // default Polaroid background is white
       caption: `Photo ${i + 1}`,
     }))
   )
@@ -19,7 +19,6 @@ function App() {
     { id: 2, color: '#8bc34a', text: 'Note 2' },
   ])
 
-  // Show color picker when button is clicked
   const [showPolaroidPicker, setShowPolaroidPicker] = useState(null)
   const [showNotePicker, setShowNotePicker] = useState(null)
 
@@ -39,16 +38,17 @@ function App() {
     <div className="container">
       <h1>Polaroid Gallery + Post-it Notes</h1>
 
-      {/* Polaroids */}
+      {/* Polaroid Gallery */}
       <div className="grid">
         {polaroids.map((p, i) => (
           <div
             key={p.id}
             className={`square ${selectedPolaroid === i ? 'active' : ''}`}
+            style={{ backgroundColor: p.color }} // Polaroid background color
             onClick={() => setSelectedPolaroid(i)}
           >
-            {/* Photo */}
-            <div className="photo" style={{ backgroundColor: p.color }} />
+            {/* Photo area remains white with black outline */}
+            <div className="photo" />
 
             {/* Caption */}
             <div className="caption">{p.caption}</div>
@@ -136,3 +136,4 @@ function App() {
 }
 
 export default App
+

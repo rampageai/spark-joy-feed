@@ -22,7 +22,6 @@ h2 {
   position: relative;
   width: 140px;
   height: 180px;
-  background: white;
   border-radius: 6px;
   padding: 10px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
@@ -36,7 +35,9 @@ h2 {
 
 .photo {
   flex: 1;
+  background-color: #ffffff; /* always white inside */
   border-radius: 4px;
+  border: 2px solid black; /* <-- added black outline */
 }
 
 .caption {
