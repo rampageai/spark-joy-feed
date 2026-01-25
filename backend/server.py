@@ -7,6 +7,7 @@ import uvicorn
 from sqlmodel import select, delete
 from pydantic import BaseModel
 from db import Photo, Note, Entry, create_db_and_tables, get_session
+from typing import Optional
 
 app = FastAPI()
 
@@ -27,13 +28,16 @@ app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 # Sticky Note - Date and Text
 
 # Classes for Photo and Note
+
+
 class PhotoCreate(BaseModel):
     name: str
-    date: str
+    date: Optional[str] = None
 
 class NoteCreate(BaseModel):
     text: str
-    date: str 
+    date: Optional[str] = None
+
 
 @app.on_event("startup")
 def on_startup():
@@ -132,8 +136,8 @@ def create_photo(photo: PhotoCreate):
 @app.post("/photos/upload")
 def upload_photo(
     file: UploadFile = File(...),
-    caption: str | None = Form(None),
-    name: str | None = Form(None),
+    caption: Optional[str] = Form(None),
+    name: Optional[str] = Form(None),
     date: str = Form(...),
 ):
     if not file.content_type or not file.content_type.startswith("image/"):
