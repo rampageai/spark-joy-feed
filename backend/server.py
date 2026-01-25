@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 import uvicorn
 from sqlmodel import select, delete
 from pydantic import BaseModel
@@ -29,11 +29,12 @@ def main_page():
     return {"page": "main"}
 
 @app.get("/clear")
-def clear_entries():
+def clear_all():
     with get_session() as session:
-        session.exec(delete(Entry))
+        session.exec(delete(Photo))
+        session.exec(delete(Note))
         session.commit()
-    return {"page": "clear", "status": "all entries deleted"}
+    return {"status": "all photos and notes deleted"}
 
 @app.get("/view")
 def view_page():
@@ -73,7 +74,6 @@ def create_photo(photo: PhotoCreate):
         session.refresh(db_photo)
         return {"status": "added", "photo": db_photo}
 
-
 @app.post("/notes")
 def create_note(note: NoteCreate):
     with get_session() as session:
@@ -82,6 +82,45 @@ def create_note(note: NoteCreate):
         session.commit()
         session.refresh(db_note)
         return {"status": "added", "note": db_note}
+    
+## DELETE Routes
+@app.delete("/photos/{photo_id}")
+def delete_photo(photo_id: int):
+    with get_session() as session:
+        photo = session.get(Photo, photo_id)
+
+        if photo is None:
+            raise HTTPException(
+                status_code=404,
+                detail="Photo not found"
+            )
+
+        session.delete(photo)
+        session.commit()
+
+        return {
+            "status": "deleted",
+            "photo_id": photo_id
+        }
+
+@app.delete("/notes/{note_id}")
+def delete_note(note_id: int):
+    with get_session() as session:
+        note = session.get(Note, note_id)
+
+        if note is None:
+            raise HTTPException(
+                status_code=404,
+                detail="Note not found"
+            )
+
+        session.delete(note)
+        session.commit()
+
+        return {
+            "status": "deleted",
+            "note_id": note_id
+        }
 
 def start_web_server():
     uvicorn.run(app, host="127.0.0.1", port=3000, log_level="info")
