@@ -16,6 +16,24 @@ body {
   /* start at top */
 }
 
+.background-controls {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+
+.background-controls button {
+  padding: 6px 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #000;
+}
+
 /* ------------------- Container ------------------- */
 .container {
   width: 100%;
