@@ -1,6 +1,25 @@
 from typing import Optional
 from sqlmodel import SQLModel, Field, create_engine, Session
 
+class Photo(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+
+    # required (cannot be null)
+    name: str
+
+    # optional (can be null)
+    date: Optional[str] = None
+
+
+class Note(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+
+    # required
+    text: str
+
+    # optional
+    date: Optional[str] = None
+    
 class Entry(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     text: str

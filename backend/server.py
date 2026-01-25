@@ -6,6 +6,9 @@ from db import Entry, create_db_and_tables, get_session
 
 app = FastAPI()
 
+# Photo - Name and Date
+# Sticky Note - Date and Text
+
 @app.on_event("startup")
 def on_startup():
     create_db_and_tables()
