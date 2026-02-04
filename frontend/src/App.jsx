@@ -291,20 +291,23 @@ function App() {
 
             {showFirework === `${item.type}-${item.id}` && (
               <div className="firework">
-                {Array.from({ length: 180 }).map((_, j) => (
-                  <span
-                    key={j}
-                    className="spark"
-                    style={{
-                      "--x": `${Math.random() * 800 - 400}px`,
-                      "--y": `${Math.random() * 800 - 400}px`,
-                      "--size": `${Math.random() * 15 + 15}px`,
-                      "--color": `radial-gradient(circle, #fff 0%, 
-                  ${["#ff4500", "#ffd700", "#ff0000", "#ffa500"][Math.floor(Math.random() * 4)]} 50%, 
-                  rgba(255,255,0,0) 80%)`,
-                    }}
-                  />
-                ))}
+                {Array.from({ length: 180 }).map((_, j) => {
+                  const angle = Math.random() * 2 * Math.PI;
+                  const radius = Math.random() * 800;
+                  return (
+                    <span
+                      key={j}
+                      className="spark"
+                      style={{
+                        "--x": `${radius * Math.cos(angle)}px`,
+                        "--y": `${radius * Math.sin(angle)}px`,
+                        "--size": `${Math.random() * 15 + 5}px`,
+                        "--color": `radial-gradient(circle, #fff 0%, 
+                      ${["#ff4500", "#ffd700", "#ff0000", "#ffa500"][Math.floor(Math.random() * 4)]} 50%, rgba(255,255,0,0) 80%)`,
+                      }}
+                    />
+                  );
+                })}
               </div>
             )}
           </div>
